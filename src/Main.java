@@ -158,8 +158,35 @@ public class Main {
         return months[monthIndex];
     }
 
-    public static int consecutiveLossDays(String comm) { 
-        return 1234; 
+    public static int consecutiveLossDays(String comm) {
+        int comm_index = -1;
+
+        for (int i = 0; i < COMMS; i++) {
+            if (comm.equals(commodities[i])){
+                comm_index = i;
+                break;
+            }
+        }
+
+        if(comm_index == -1) return -1;
+
+        int longestStreakMonth = 0;
+        int streak  = 0;
+
+        for (int month = 0; month < MONTHS; month++) {
+            for (int day = 0; day < DAYS; day++) {
+                if(profits[month][day][comm_index] < 0){
+                    streak ++;
+                    if(streak > longestStreakMonth){
+                        longestStreakMonth = streak;
+                    }
+                }else{
+                    streak = 0;
+                }
+            }
+        }
+
+        return longestStreakMonth;
     }
     
     public static int daysAboveThreshold(String comm, int threshold) { 
