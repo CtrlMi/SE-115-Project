@@ -188,9 +188,30 @@ public class Main {
 
         return longestStreakMonth;
     }
-    
-    public static int daysAboveThreshold(String comm, int threshold) { 
-        return 1234; 
+
+    public static int daysAboveThreshold(String comm, int threshold) {
+        int comm_index = -1;
+
+        for (int i = 0; i < COMMS; i++) {
+            if (comm.equals(commodities[i])){
+                comm_index = i;
+                break;
+            }
+        }
+
+        if(comm_index == -1) return -1;
+
+        int dayCount = 0;
+
+        for (int month = 0; month < MONTHS; month++) {
+            for (int day = 0; day < DAYS; day++) {
+                if(profits[month][day][comm_index] > threshold){
+                    dayCount++;
+                }
+            }
+        }
+
+        return dayCount;
     }
 
     public static int biggestDailySwing(int month) { 
