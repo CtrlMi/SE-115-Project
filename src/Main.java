@@ -262,9 +262,28 @@ public class Main {
         else if (c2_total > c1_total) return  "C2 is better by " + diff;
         else return "Equal";
     }
-    
-    public static String bestWeekOfMonth(int month) { 
-        return "DUMMY"; 
+
+    public static String bestWeekOfMonth(int month) {
+        if(month < 0 || month > 11) return "INVALID_MONTH";
+        int total;
+        int best = -100000000;
+        int bestWeek = 0;
+
+        for (int week = 1; week <= 4; week++) {
+            total = 0;
+            for (int day = (week -1) * 7; day < week * 7; day++) {
+                for (int comm = 0; comm < COMMS; comm++) {
+                    total += profits[month][day][comm];
+                }
+            }
+
+            if (total > best){
+                bestWeek = week;
+                best = total;
+            }
+        }
+
+        return "Week" + " " +bestWeek;
     }
 
     public static void main(String[] args) {
