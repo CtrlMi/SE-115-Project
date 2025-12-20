@@ -1,6 +1,7 @@
 // Main.java — Students version
 import java.io.*;
 import java.util.*;
+import java.nio.file.Paths;
 
 public class Main {
     static final int MONTHS = 12;
@@ -9,10 +10,39 @@ public class Main {
     static String[] commodities = {"Gold", "Oil", "Silver", "Wheat", "Copper"};
     static String[] months = {"January","February","March","April","May","June",
                               "July","August","September","October","November","December"};
-    
+
+    static int[][][] profits = new int[MONTHS][DAYS][COMMS];
 
     // ======== REQUIRED METHOD LOAD DATA (Students fill this) ========
     public static void loadData() {
+        for(int month = 0; month < MONTHS ; month++){
+            Scanner reader = null;
+            try{
+                String fileName = "Data_Files/" + months[month] + ".txt";
+                reader = new Scanner(Paths.get(fileName));
+                reader.nextLine();
+                while(reader.hasNextLine()){
+                    String line = reader.nextLine();
+                    String[] entries = line.split(",");
+
+                    int day = Integer.parseInt(entries[0]);
+                    String commodity = entries[1];
+                    int profit = Integer.parseInt(entries[2]);
+
+                    for(int i = 0; i < COMMS; i++){
+                        if(commodity.equals(commodities[i])){
+                            profits[month][day - 1][i] = profit;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                return;
+            } finally {
+                if (reader != null) {
+                    reader.close();
+                }
+            }
+        }
     }
 
     // ======== 10 REQUIRED METHODS (Students fill these) ========
