@@ -214,8 +214,21 @@ public class Main {
         return dayCount;
     }
 
-    public static int biggestDailySwing(int month) { 
-        return 1234; 
+    public static int biggestDailySwing(int month) {
+        if(month < 0 || month > 11) return -99999;
+        int diff = 0;
+        int total;
+
+        for (int day = 1; day < DAYS; day++) {
+            total = 0;
+            for (int comm = 0; comm < COMMS; comm++) {
+                total += Math.abs(profits[month][day][comm] - profits[month][day - 1][comm]);
+            }
+            if (total > diff){
+                diff = total;
+            }
+        }
+        return diff;
     }
     
     public static String compareTwoCommodities(String c1, String c2) { 
