@@ -128,9 +128,34 @@ public class Main {
 
         return theDay + 1;
     }
-    
-    public static String bestMonthForCommodity(String comm) { 
-        return "DUMMY"; 
+
+    public static String bestMonthForCommodity(String comm) {
+        int comm_index = -1;
+
+        for (int i = 0; i < COMMS; i++) {
+            if (comm.equals(commodities[i])){
+                comm_index = i;
+                break;
+            }
+        }
+        if(comm_index == -1) return "INVALID_COMMODITY";
+
+        int maxCommProfit = -100000000;
+        int total = 0;
+        int monthIndex = 0;
+
+        for (int month = 0; month < MONTHS; month++) {
+            total = 0;
+            for (int day = 0; day < DAYS; day++) {
+                total += profits[month][day][comm_index];
+            }
+            if(total > maxCommProfit){
+                maxCommProfit = total;
+                monthIndex = month;
+            }
+        }
+
+        return months[monthIndex];
     }
 
     public static int consecutiveLossDays(String comm) { 
