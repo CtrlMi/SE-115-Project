@@ -230,9 +230,37 @@ public class Main {
         }
         return diff;
     }
-    
-    public static String compareTwoCommodities(String c1, String c2) { 
-        return "DUMMY is better by 1234"; 
+
+    public static String compareTwoCommodities(String c1, String c2) {
+        int comm1_index = -1;
+        int comm2_index = -1;
+
+        for (int comm = 0; comm < COMMS; comm++) {
+            if(c1.equals(commodities[comm])){
+                comm1_index = comm;
+            }
+            if(c2.equals(commodities[comm])){
+                comm2_index = comm;
+            }
+        }
+
+        if (comm1_index == -1 || comm2_index == -1) return "INVALID_COMMODITY";
+
+        int c1_total = 0;
+        int c2_total = 0;
+
+        for (int month = 0; month < MONTHS; month++) {
+            for (int day = 0; day < DAYS; day++) {
+                c1_total += profits[month][day][comm1_index];
+                c2_total += profits[month][day][comm2_index];
+            }
+        }
+
+        int diff = Math.abs(c1_total - c2_total);
+
+        if (c1_total > c2_total) return "C1 is better by " + diff;
+        else if (c2_total > c1_total) return  "C2 is better by " + diff;
+        else return "Equal";
     }
     
     public static String bestWeekOfMonth(int month) { 
