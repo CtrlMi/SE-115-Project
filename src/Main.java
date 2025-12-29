@@ -36,7 +36,7 @@ public class Main {
                     }
                 }
             } catch (Exception e) {
-                return;
+                continue;
             } finally {
                 if (reader != null) {
                     reader.close();
@@ -113,7 +113,7 @@ public class Main {
             return -1;
         }
 
-        int maxDayProfit = 0;
+        int maxDayProfit = -100000000;
         int total;
         int theDay = 0;
 
